@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>hossam elaskary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #333; }
+        .welcome {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: marquee 5s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover { background-color: #0056b3; }
+        .section { display: none; }
+        .section.active { display: block; }
+        #page2 {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            margin: -20px;
+            padding: 20px;
+        }
+        #page2 h1 { font-size: 18px; color: yellow; }
+        #page2 .btn { background-color: #1e1e1e; border: 1px solid #444; }
+        #page2 .btn:hover { background-color: #333; }
+        #page2 .btn-multi { background-color: #2a6e2a; }
+        #page2 .btn-onln { background-color: #6b3fa0; }
+        .footer-text { margin-top: 60px; color: #ccc; font-size: 16px; }
+        .footer-text a { color: #f31414; margin: 0 10px; }
+        #crypto { display: none; }
+    </style>
+
+    <script>
+        // تسجيل Service Worker من خلال Blob، عشان الكل يبقى في ملف واحد
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'hossam-v1';
+                const FILES = [location.href];
+                self.addEventListener('install', e => {
+                    e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES)));
+                });
+                self.addEventListener('fetch', e => {
+                    e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(blob))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</head>
+<body>
+
+<div id="page1" class="section active">
+    <h1>حسام العسكري</h1>
+    <div class="welcome">Welcome</div>
+    <button class="btn" onclick="showPage('page2')">PS4</button>
+</div>
+
+<div id="page2" class="section">
+    <h1 id="msgs">hossam elaskary</h1>
+    <hr>
+    <br>
+
+    <div id="menu">
+        <h1 style="font-size: 18px; color: yellow;">Select Your Firmware</h1>
+
+        <button class="btn btn-multi"
+            onmouseover="setMsg('PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 حسام العسكري FW - (Auto Exploit Selection)')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='g2all/index.html'">GoldHEN Multi FW</button>
+
+        <button class="btn"
+            onmouseover="setMsg('PS4 5.05 FW Host v2.5')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='505/index.html'">5.05 FW v2.5</button>
+
+        <button class="btn"
+            onmouseover="setMsg('PS4 6.72 FW GoldHEN Host')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='672goldhen/index.html'">6.72 FW GoldHEN</button>
+
+        <button class="btn"
+            onmouseover="setMsg('PS4 6.72 FW Host v3.0')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='672/index.html'">6.72 FW v3.0</button>
+        <br>
+
+        <button class="btn"
+            onmouseover="setMsg('PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='900goldhen/index.html'">9.00 FW GoldHEN</button>
+
+        <button class="btn"
+            onmouseover="setMsg('PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='900v3/index.html'">9.00 FW v3.0</button>
+        <br>
+
+        <button class="btn"
+            onmouseover="setMsg('Restore a Host to User’s Guide without using DNS')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="location.href='restore/index.html'">Restore Host</button>
+        <br>
+
+        <button class="btn btn-onln"
+            onmouseover="setMsg('If you like my work you can support me with a donation.')"
+            onmouseout="setMsg(DEFAULT_MSG)"
+            onclick="donations()"
+            style="margin-top: 137px; margin-bottom: 77px; width: 468px;">
+            For Donations (Only in Cryptocurrencies)
+        </button>
+
+        <div class="footer-text">
+            <p>Designed by:
+                <a href="https://www.tiktok.com/@hossam.elaskary?_r=1&_t=ZS-9B9ctiVsLwX"
+                   target="_blank">https://www.tiktok.com/@hossam.elaskary</a>
+            </p>
+            <p>A special thanks to all the devs on the scene.</p>
+        </div>
+
+        <br>
+        <button class="btn" onclick="showPage('page1')">الرجوع للصفحة الرئيسية</button>
+    </div>
+
+    <div id="crypto">
+        <br>
+        <button class="btn" onclick="loadMenu()">Return</button>
+    </div>
+</div>
+
+<script>
+    const DEFAULT_MSG = 'PS4 Exploit Host by GamerHack';
+
+    function showPage(pageId) {
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+    function setMsg(text) {
+        document.getElementById('msgs').textContent = text;
+    }
+    function donations() {
+        document.getElementById('crypto').style.display = 'block';
+        document.getElementById('menu').style.display = 'none';
+        setMsg(DEFAULT_MSG);
+    }
+    function loadMenu() {
+        document.getElementById('menu').style.display = 'block';
+        document.getElementById('crypto').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
